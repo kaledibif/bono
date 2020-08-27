@@ -10,6 +10,15 @@ This is a simple Expo + Firebase project for basic Expense & Income management. 
 - handles different field types in forms
 
 
+#### Some scenes from the application.
+
+Login Screen | Register Screen
+:-------------------------:|:-------------------------:
+![](SS/login.png)          |  ![](SS/register.png)
+![](SS/categories.png)     |  ![](SS/category.png)
+![](SS/add-category.png)   |  ![](SS/add-item.png)
+![](SS/profile.png)        |
+
 ## Installation
 
 1. Install node modules using Yarn.
