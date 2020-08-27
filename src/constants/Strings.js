@@ -101,7 +101,7 @@ export default {
     currencies: [
       'Euro (€)', 'Dollar ($)', 'Turkish Lira (₺)', 'Cancel'
     ],
-    appName: 'Expenso',
+    appName: 'Bono',
     appVersion: 'Version: 1.0',
   },
   monthsSheet: [
