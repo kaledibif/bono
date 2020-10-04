@@ -55,6 +55,7 @@ async function loadResourcesAsync() {
       "montserrat-regular": require("./src/assets/fonts/Montserrat-Regular.ttf"),
       "montserrat-semi-bold": require("./src/assets/fonts/Montserrat-SemiBold.ttf"),
       "space-mono": require("./src/assets/fonts/SpaceMono-Regular.ttf"),
+      "roboto-medium": require("./src/assets/fonts/Roboto-Medium.ttf"),
     })
   ]);
 }
