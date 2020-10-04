@@ -24,18 +24,35 @@ const _retrieveData = async (key) => {
   }
 };
 
-const get = async (category, filter = null) => {
+const get = async (category, dateFilter = null) => {
   // const activeMonth = new Date().toLocaleString('default', { month: 'long' })
-  const date = new Date();
-  const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-  const endDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-  // console.warn('first:', firstDay)
-  // console.warn('last:', endDay)
 
-  const ref = firebase
-    .firestore()
-    .collection(collection)
-    .where('categoryId', '==', category.id)
+  let ref = null;
+  if (dateFilter) {
+    const firstDay = new Date(dateFilter.year(), dateFilter.month(), 1);
+    const endDay = new Date(dateFilter.year(), dateFilter.month() + 1, 0);
+
+    console.warn('first:', firstDay)
+    console.warn('last:', endDay)
+
+    ref = firebase
+      .firestore()
+      .collection(collection)
+      .where('categoryId', '==', category.id)
+      .orderBy('date')
+      .startAt(firstDay)
+      .endAt(endDay)
+  } else {
+    const date = new Date();
+    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    const endDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+    ref = firebase
+      .firestore()
+      .collection(collection)
+      .where('categoryId', '==', category.id)
+      .orderBy('date')
+  }
 
   const snapshot = await ref.get();
 

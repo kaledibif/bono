@@ -26,7 +26,7 @@ const _retrieveData = async (key) => {
   }
 };
 
-const get = async (type, filter = null) => {
+const get = async (type = null, dateFilter = {}) => {
   const userId = firebase.auth().currentUser.uid;
   const ref = firebase
     .firestore()
@@ -41,7 +41,7 @@ const get = async (type, filter = null) => {
 
   snapshot.forEach(async (doc) => {
     categoryCount++;
-    const items = await ItemController.get(doc)
+    const items = await ItemController.get(doc, dateFilter)
     itemCount = itemCount + (items.length ? items.length : 0)
     data.push({ id: doc.id, items: items, ...doc.data() })
   });

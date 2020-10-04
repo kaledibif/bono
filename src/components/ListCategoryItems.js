@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Text,
   View,
@@ -18,27 +18,38 @@ import moment from 'moment';
 import Helpers from '../utils/Helpers';
 
 const ListCategoryItems = ({ navigation, category, items }) => {
+  const [formattedItems, setFormattedItems] = useState([])
+
   useEffect(() => {
-    return
-    let monthlyData = []
-
-    items.forEach(item => {
-      const month = moment.unix(item.date.seconds).format("MMMM")
-      if (monthlyData.indexOf(month) <= -1) {
-      }
-    });
-
-    console.warn(monthlyData)
+    prepareData()
   }, [])
 
-  const getSection = (section) => {
+  const prepareData = () => {
+    const groupNames = Array.from(new Set(items.map(k => moment.unix(k.date.seconds).format("YYYY-MM"))))
+    groupNames.sort().reverse()
+
+    let groups = []
+    groupNames.forEach(k => {
+      const splittedYear = k.split('-')
+      groups.push({
+        group: moment(splittedYear[0] + '-' + splittedYear[1] + '-' + '01'),
+        items: items.filter(
+          ({ date: d }) => moment.unix(d.seconds) > moment(splittedYear[0] + '-' + splittedYear[1] + '-' + '01')
+            && moment.unix(d.seconds) < moment(splittedYear[0] + '-' + splittedYear[1] + '-' + '01').add(1, 'M')
+        )
+      })
+    })
+
+    console.warn(groups);
+    setFormattedItems(groups)
+  }
+
+  const renderGroupContainer = ({ group, items }) => {
     return (
       <View style={styles.listContainer}>
         <Separator style={styles.monthSeperator}>
-          <Text style={styles.monthSeperatorText}>Cat {/* {Helpers.getCurrentSeperator(section['name'])} */}</Text>
-          <Text style={styles.monthSeperatorTextRight}>$ {Helpers.sumAll(items, 'value')}</Text>
+          <Text style={styles.monthSeperatorText}>{group.format('MMMM')} {group.year() === moment(new Date).year() ? '' : group.year()}</Text>
         </Separator>
-
         <List style={styles.list}>
           {items.reverse().map(item =>
             <ListItem
@@ -67,14 +78,13 @@ const ListCategoryItems = ({ navigation, category, items }) => {
 
   return (
     <View style={styles.container}>
-      {getSection(null)}
-      {/* {items.map((section, key) => {
+      {formattedItems.map(data => {
         return (
-          <View key={key}>
-            {getSection(section)}
+          <View>
+            {renderGroupContainer(data)}
           </View>
         );
-      })} */}
+      })}
     </View>
   )
 }

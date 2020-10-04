@@ -15,6 +15,7 @@ import {
   Icon,
   Button,
 } from 'native-base'
+var moment = require('moment');
 
 import CategoriesStyles from '../views/Categories/CategoriesStyles'
 import Colors from '../constants/Colors'
@@ -25,7 +26,7 @@ import { Context } from "../context/Context";
 
 const currentMont = new Date();
 
-const CategoriesHeader = ({ segment, onSegmentChange, navigation, incomeCategories, expenseCategories }) => {
+const CategoriesHeader = ({ segment, onSegmentChange, navigation, dateFilter, incomeCategories, expenseCategories }) => {
   const [activeMonth, setActiveMonth] = useState(currentMont.toLocaleString('default', { month: 'long' }))
   const [activeYear, setActiveYear] = useState('2020')
   const [showFilter, setShowFilter] = useState(false)
@@ -95,7 +96,7 @@ const CategoriesHeader = ({ segment, onSegmentChange, navigation, incomeCategori
           </Left>
           <Body style={CategoriesStyles.flex4} >
             <Title style={CategoriesStyles.headerBoldTitle}>
-              {activeMonth} {activeYear == '2019' ? '2019' : ''}
+              {moment(dateFilter).format('MMMM')} {moment(dateFilter).year() === 2020 ? '' : moment(dateFilter).year()}
             </Title>
           </Body>
           <Right style={CategoriesStyles.flex1}>

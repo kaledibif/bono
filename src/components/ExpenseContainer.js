@@ -14,15 +14,14 @@ import {
   View,
 } from "native-base";
 import { NavigationEvents } from 'react-navigation';
-
+var moment = require('moment');
 import LoadingSpinner from '../components/LoadingSpinner';
 import Helpers from '../utils/Helpers';
 
 import Colors from '../constants/Colors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const ExpenseContainer = ({ type, navigation, categories }) => {
-  const [activeMonth, setActiveMonth] = useState(new Date().toLocaleString('default', { month: 'long' }))
+const ExpenseContainer = ({ type, navigation, categories, dateFilter, onDateFilterChange }) => {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -52,11 +51,21 @@ const ExpenseContainer = ({ type, navigation, categories }) => {
       }
     });
 
-    return type + ' in ' + activeMonth + ': $ ' + totalSum
+    return type + ' in '
+      + new Date(dateFilter).toLocaleString('default', { month: 'long' })
+      + ' $' + totalSum
   }
 
   const getOrderedCategories = (data) => {
     return data.sort((a, b) => (a.name > b.name) ? 1 : -1)
+  }
+
+  const monthChange = (increment = false) => {
+    if (increment) {
+      onDateFilterChange(moment(dateFilter).add(1, 'M'))
+    } else {
+      onDateFilterChange(moment(dateFilter).subtract(1, 'M'))
+    }
   }
 
   return (
@@ -103,7 +112,10 @@ const ExpenseContainer = ({ type, navigation, categories }) => {
         </List>}
       {getCategories(categories) && getCategories(categories).length ? (
         <View style={styles.summaryContainer}>
-          <TouchableOpacity style={styles.arrowContainer}>
+          <TouchableOpacity
+            activeOpacity={.8}
+            onPress={() => { monthChange(false) }}
+            style={styles.arrowContainer}>
             <Icon
               style={styles.monthButtons}
               type="Feather"
@@ -111,7 +123,10 @@ const ExpenseContainer = ({ type, navigation, categories }) => {
             />
           </TouchableOpacity>
           <Text style={styles.summaryText}>{getTotalSum()}</Text>
-          <TouchableOpacity style={styles.arrowContainer}>
+          <TouchableOpacity
+            activeOpacity={.8}
+            onPress={() => { monthChange(true) }}
+            style={styles.arrowContainer}>
             <Icon
               style={styles.monthButtons}
               type="Feather"
@@ -147,12 +162,14 @@ const styles = StyleSheet.create({
   },
   summaryContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginHorizontal: 32,
+    flex: 1,
   },
   summaryText: {
     color: Colors.darkgrey,
-    margin: 18
+    margin: 18,
   },
   text: {
     fontFamily: 'montserrat-medium',
