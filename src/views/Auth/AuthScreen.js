@@ -26,6 +26,7 @@ import {
   Title,
   Toast,
 } from "native-base";
+import { firebase } from '../../config/firebase/firebase'
 
 import AuthController from '../../controllers/AuthController'
 import AuthStyles from "./AuthStyles"
@@ -39,8 +40,8 @@ const AuthScreen = ({ navigation }) => {
   const [appLoading, setAppLoading] = useState(true)
   const [loading, setLoading] = useState(false)
   const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('faruk@expenso.com')
+  const [password, setPassword] = useState('123123')
   const [confirmPassword, setConfirmPassword] = useState('')
 
   useEffect(() => {
@@ -110,7 +111,7 @@ const AuthScreen = ({ navigation }) => {
           </Left>
           <Right style={AuthStyles.flex1} />
         </Header>
-        <Content scrollEnabled={true}>
+        <Content scrollEnabled={false}>
           {type === 'login' ?
             <LottieAnimation /> : null}
           <Form style={AuthStyles.form}>
@@ -221,6 +222,7 @@ const AuthScreen = ({ navigation }) => {
               disabled={loading}
               light
               onPress={() => {
+                console.warn(firebase.auth())
                 clearState()
                 setType(type === 'register' ? 'login' : 'register')
               }}

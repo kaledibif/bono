@@ -38,6 +38,9 @@ import { Context } from "../../context/Context";
 const segments = ['Expense', 'Income'];
 
 const NewCategoryScreen = ({ navigation: { state, navigate, goBack } }) => {
+  const [contextData, setContextData] = useContext(Context);
+  const [categories, setCategories] = useState(contextData.categories);
+
   const [isEdit, setIsEdit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [id, setId] = useState(null);
@@ -50,7 +53,6 @@ const NewCategoryScreen = ({ navigation: { state, navigate, goBack } }) => {
   const [color, setColor] = useState('#8e8e93');
   const [pickIcon, setPickIcon] = useState(false);
   const [pickColor, setPickColor] = useState(false);
-  const [categories, setCategories] = useContext(Context);
 
   useEffect(() => {
     if (state.params && state.params.id) {

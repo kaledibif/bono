@@ -42,7 +42,9 @@ const NewItemScreen = ({ navigation }) => {
   const category = navigation.state.params.category
   const item = navigation.state.params.item
 
-  const [expenseCategories, setExpenseCategories] = useContext(Context);
+  const [contextData, setContextData] = useContext(Context);
+  const [categories, setCategories] = useState(contextData.categories);
+
   const [loading, setLoading] = useState(false)
   const [id, setId] = useState('')
   const [value, setValue] = useState('')
@@ -154,7 +156,7 @@ const NewItemScreen = ({ navigation }) => {
           <CategoryPicker
             category={category}
             isEdit={isEdit}
-            categories={expenseCategories}
+            categories={categories}
             categoryId={categoryId}
             categoryName={categoryName}
             onPicked={(value) => {

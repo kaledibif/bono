@@ -20,7 +20,7 @@ export default {
     }
   },
   categories: {
-    segments: ['Expense', 'Income', 'Report'],
+    segments: ['Expense', 'Income'],
     header: {
       title: 'Categories',
     },

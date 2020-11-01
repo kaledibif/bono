@@ -27,10 +27,10 @@ import { Context } from "../context/Context";
 const currentMont = new Date();
 
 const CategoriesHeader = ({ segment, onSegmentChange, navigation, dateFilter, incomeCategories, expenseCategories }) => {
+  const [contextData, setContextData] = useContext(Context);
+  const [categories, setCategories] = useState(contextData.categories);
   const [activeMonth, setActiveMonth] = useState(currentMont.toLocaleString('default', { month: 'long' }))
   const [activeYear, setActiveYear] = useState('2020')
-  const [showFilter, setShowFilter] = useState(false)
-  const [categories, setCategories] = useContext(Context);
 
   const handleActionSheet = () => {
     ActionSheet.show(
@@ -72,19 +72,8 @@ const CategoriesHeader = ({ segment, onSegmentChange, navigation, dateFilter, in
             <Button
               transparent
               onPress={() => {
-                setShowFilter(true)
-              }}
-            >
-              <Icon
-                style={CategoriesStyles.headerIcon}
-                type="Feather"
-                name="filter"
-              />
-            </Button>
-            <Button
-              transparent
-              onPress={() => {
-                getCategories()
+                CategoryController.disableSync()
+                navigation.navigate('AuthLoading')
               }}
             >
               <Icon
@@ -134,61 +123,9 @@ const CategoriesHeader = ({ segment, onSegmentChange, navigation, dateFilter, in
     )
   }
 
-  const getDateFilter = () => {
-    return (
-      <Header style={CategoriesStyles.header} hasSegment>
-        <Left style={CategoriesStyles.flex1}>
-          <Button
-            transparent
-            onPress={() => {
-              setShowFilter(false)
-            }}
-          >
-            <Icon
-              style={CategoriesStyles.headerLeftIcon}
-              type="Feather"
-              name="x"
-            />
-          </Button>
-          <TouchableOpacity
-            activeOpacity={.8}
-            style={CategoriesStyles.headerTO}
-            onPress={() => handleActionSheet()}
-          >
-            <Title style={CategoriesStyles.headerSubTitle}>Month</Title>
-            <Title style={CategoriesStyles.headerMidTitle}>{activeMonth}</Title>
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={.8}
-            style={CategoriesStyles.headerTO}
-            onPress={() => {
-              setActiveYear(activeYear == '2020' ? '2019' : '2020')
-            }}
-          >
-            <Title style={CategoriesStyles.headerSubTitle}>Year</Title>
-            <Title style={CategoriesStyles.headerMidTitle}>{activeYear}</Title>
-          </TouchableOpacity>
-        </Left>
-        <Right style={CategoriesStyles.flex1}>
-          <TouchableOpacity
-            transparent
-            onPress={() => {
-              setShowFilter(false)
-            }}
-          >
-            <Icon
-              style={CategoriesStyles.headerIcon}
-              type="Feather"
-              name="check"
-            />
-          </TouchableOpacity>
-        </Right>
-      </Header>
-    )
-  }
   return (
     <View style={CategoriesStyles.headerContainer} >
-      {showFilter === true ? getDateFilter() : getHeader()}
+      {getHeader()}
     </View>
   )
 }

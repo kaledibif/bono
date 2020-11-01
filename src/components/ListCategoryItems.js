@@ -40,8 +40,13 @@ const ListCategoryItems = ({ navigation, category, items }) => {
       })
     })
 
-    console.warn(groups);
     setFormattedItems(groups)
+  }
+
+  const getGroupSum = (items) => {
+    return items.reduce(function (prev, cur) {
+      return prev + cur.value;
+    }, 0);
   }
 
   const renderGroupContainer = ({ group, items }) => {
@@ -49,6 +54,7 @@ const ListCategoryItems = ({ navigation, category, items }) => {
       <View style={styles.listContainer}>
         <Separator style={styles.monthSeperator}>
           <Text style={styles.monthSeperatorText}>{group.format('MMMM')} {group.year() === moment(new Date).year() ? '' : group.year()}</Text>
+          <Text style={styles.groupSumText}>$ {getGroupSum(items)}</Text>
         </Separator>
         <List style={styles.list}>
           {items.reverse().map(item =>
@@ -78,9 +84,9 @@ const ListCategoryItems = ({ navigation, category, items }) => {
 
   return (
     <View style={styles.container}>
-      {formattedItems.map(data => {
+      {formattedItems.map((data, key) => {
         return (
-          <View>
+          <View key={key}>
             {renderGroupContainer(data)}
           </View>
         );
@@ -107,6 +113,11 @@ const styles = StyleSheet.create({
   },
   monthSeperatorText: {
     color: Colors.grey,
+    fontFamily: 'montserrat-semi-bold',
+  },
+  groupSumText: {
+    color: Colors.fume,
+    marginRight: 20,
     fontFamily: 'montserrat-semi-bold',
   },
   monthSeperatorTextRight: {

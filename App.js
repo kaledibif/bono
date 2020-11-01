@@ -20,7 +20,7 @@ import Colors from "./src/constants/Colors";
 
 const App = (props) => {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
-  const [categories, setCategories] = useState([]);
+  const [contextData, setContextData] = useState([]);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
@@ -34,7 +34,7 @@ const App = (props) => {
     return (
       <View style={styles.container}>
         {Platform.OS === "ios" && <StatusBar barStyle="default" />}
-        <Context.Provider value={[categories, setCategories]}>
+        <Context.Provider value={[contextData, setContextData]}>
           <AppNavigator />
         </Context.Provider>
       </View>

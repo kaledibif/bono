@@ -3,10 +3,14 @@ import {
   createSwitchNavigator,
 } from 'react-navigation';
 
-import MainTabNavigator from './MainTabNavigator';
+import AuthLoadingScreen from './AuthLoadingScreen';
+import AuthStackNavigator from './AuthStackNavigator';
+import MainStackNavigator from './MainStackNavigator';
 
 export default createAppContainer(
   createSwitchNavigator({
-    Main: MainTabNavigator,
+    AuthLoading: AuthLoadingScreen,
+    Auth: AuthStackNavigator,
+    App: MainStackNavigator,
   })
 );

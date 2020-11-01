@@ -29,6 +29,8 @@ const ExpenseContainer = ({ type, navigation, categories, dateFilter, onDateFilt
   }, []);
 
   const getSummaryText = (items = [], expText = '', sumText = '', currency = '$') => {
+    return Math.random() < 0.8 ? (currency + ' ' + Math.floor(Math.random() * (234 - 1 + 1)) + 1) : '';
+    // skip
     if (items.length == 1) {
       expText = ''
       sumText = currency + ' ' + items[0].value
@@ -79,34 +81,42 @@ const ExpenseContainer = ({ type, navigation, categories, dateFilter, onDateFilt
         <List style={styles.container}>
           {getOrderedCategories(getCategories(categories)).map((category, key) => {
             return (
-              <ListItem
-                icon
-                key={key}
-                first
-                last
-                key={category.id}
-                onPress={() => {
-                  navigation.navigate('Category', category)
-                }}
-              >
-                <Left>
-                  <Button transparent>
-                    <Icon
-                      active
-                      name={category.icon}
-                      type="Feather"
-                      style={{ color: category.color }}
-                    />
-                  </Button>
-                </Left>
-                <Body>
-                  <Text style={styles.text}>{category.name}</Text>
-                </Body>
-                <Right>
-                  <Text style={styles.rightInfoText}>{getSummaryText(category.items)}</Text>
-                  <Icon active name="arrow-forward" />
-                </Right>
-              </ListItem>
+              <View>
+                <ListItem
+                  icon
+                  key={key}
+                  first
+                  last
+                  key={category.id}
+                  onPress={() => {
+                    navigation.navigate('Category', category)
+                  }}
+                >
+                  <Left>
+                    <Button transparent>
+                      <Icon
+                        active
+                        name={category.icon}
+                        type="Feather"
+                        style={{ color: category.color }}
+                      />
+                    </Button>
+                  </Left>
+                  <Body>
+                    <Text style={styles.text}>{category.name}</Text>
+                  </Body>
+                  <Right>
+                    <Text style={styles.rightInfoText}>{getSummaryText(category.items)}</Text>
+                    <Icon active name="arrow-forward" />
+                  </Right>
+                </ListItem>
+                <View style={{
+                  width: Math.floor(Math.random() * (100 - 1 + 1)) + 1 + '%',
+                  borderBottomWidth: 1.5,
+                  borderBottomColor: category.color,
+                  opacity: .4
+                }}></View>
+              </View>
             )
           })}
         </List>}
@@ -118,8 +128,8 @@ const ExpenseContainer = ({ type, navigation, categories, dateFilter, onDateFilt
             style={styles.arrowContainer}>
             <Icon
               style={styles.monthButtons}
-              type="Feather"
-              name="chevron-left"
+              type="MaterialIcons"
+              name="keyboard-backspace"
             />
           </TouchableOpacity>
           <Text style={styles.summaryText}>{getTotalSum()}</Text>
@@ -128,9 +138,9 @@ const ExpenseContainer = ({ type, navigation, categories, dateFilter, onDateFilt
             onPress={() => { monthChange(true) }}
             style={styles.arrowContainer}>
             <Icon
-              style={styles.monthButtons}
-              type="Feather"
-              name="chevron-right"
+              style={[styles.monthButtons, { transform: [{ rotateY: '180deg' }] }]}
+              type="MaterialIcons"
+              name="keyboard-backspace"
             />
           </TouchableOpacity>
         </View>
@@ -146,11 +156,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.milk,
     borderRadius: 4,
+    borderColor: Colors.fume
   },
   monthButtons: {
     margin: 2,
-    fontSize: 22,
-    color: Colors.darkgrey
+    fontSize: 26,
+    color: Colors.fume
   },
   container: {
     backgroundColor: Colors.white,
@@ -168,6 +179,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   summaryText: {
+    fontSize: 16,
     color: Colors.darkgrey,
     margin: 18,
   },

@@ -35,10 +35,12 @@ import ItemController from "../../controllers/ItemController";
 import { Context } from "../../context/Context";
 
 const CategoryScreen = ({ navigation }) => {
-  const [loading, setLoading] = useState(false)
+  const [contextData, setContextData] = useContext(Context);
+  const [categories, setCategories] = useState(contextData.categories);
+
+  const [loading, setLoading] = useState(true)
   const [items, setItems] = useState([])
   const [category, setCategory] = useState(navigation.state.params)
-  const [categories, setCategories] = useContext(Context);
 
   useEffect(() => {
     getInitialData()
@@ -46,7 +48,8 @@ const CategoryScreen = ({ navigation }) => {
 
   const getInitialData = async () => {
     setLoading(true)
-    setItems(await ItemController.get(category))
+    setItems(contextData.items.filter(item => item.categoryId === category.id))
+    // setItems(await ItemController.get(category))
     setLoading(false)
   };
 

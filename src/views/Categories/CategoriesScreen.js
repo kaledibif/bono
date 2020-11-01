@@ -10,12 +10,9 @@ import {
   Content,
   Root,
 } from "native-base";
+var moment = require('moment');
 import { NavigationEvents } from 'react-navigation';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import AsyncStorage from '@react-native-community/async-storage';
-
-import CategoryController from '../../controllers/CategoryController'
-import ItemController from '../../controllers/ItemController'
 
 // Components 
 import CategoriesHeader from '../../components/CategoriesHeader';
@@ -25,27 +22,27 @@ import CategoriesNewButton from '../../components/CategoriesNewButton';
 
 import CategoriesStyles from "./CategoriesStyles";
 import { Context } from "../../context/Context";
-
-const segments = ['Expense', 'Income', 'Report'];
+import Strings from "../../constants/Strings"
 
 const CategoriesScreen = ({ navigation }) => {
-  const [categories, setCategories] = useContext(Context);
-  const [segment, setSegment] = useState(segments[0])
+  const [contextData, setContextData] = useContext(Context);
+  const [categories, setCategories] = useState(contextData.categories);
+  const [segment, setSegment] = useState(Strings.categories.segments[0])
   const [loading, setLoading] = useState(false)
-  const [dateFilter, setDateFilter] = useState(null)
+  const [dateFilter, setDateFilter] = useState(moment(new Date()))
 
   useEffect(() => {
-    getCategories(true)
+    getCategories(false)
   }, [])
 
   const getCategories = async (showLoading = true) => {
     if (showLoading) {
       setLoading(true)
-    }
-    const data = await CategoryController.get()
-    await setCategories(data)
 
-    setLoading(false)
+      setTimeout(() => {
+        setLoading(true)
+      }, 1000);
+    }
   }
 
   const getContent = () => {
@@ -61,6 +58,11 @@ const CategoriesScreen = ({ navigation }) => {
           <ExpenseContainer
             type={segment}
             categories={categories}
+            dateFilter={dateFilter}
+            onDateFilterChange={(val) => {
+              setDateFilter(val)
+              getCategories()
+            }}
             navigation={navigation} />
           <CategoriesNewButton
             navigation={navigation}
@@ -73,6 +75,11 @@ const CategoriesScreen = ({ navigation }) => {
           <ExpenseContainer
             type={segment}
             categories={categories}
+            dateFilter={dateFilter}
+            onDateFilterChange={(val) => {
+              setDateFilter(val)
+              getCategories()
+            }}
             navigation={navigation} />
           <CategoriesNewButton
             navigation={navigation}
@@ -91,7 +98,6 @@ const CategoriesScreen = ({ navigation }) => {
       {/* <NavigationEvents onDidFocus={async () => getCategories()} /> */}
       <Container style={CategoriesStyles.container}>
         <CategoriesHeader
-          categories={categories}
           navigation={navigation}
           segment={segment}
           dateFilter={dateFilter}
@@ -102,7 +108,9 @@ const CategoriesScreen = ({ navigation }) => {
             setDateFilter(val)
           }}
         />
-        <Content style={CategoriesStyles.content}>
+        <Content
+          showsVerticalScrollIndicator={false}
+          style={CategoriesStyles.content}>
           {getContent()}
         </Content>
       </Container>

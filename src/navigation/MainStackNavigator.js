@@ -3,7 +3,6 @@ import {
 } from 'react-navigation';
 
 // Screens
-import AuthScreen from '../views/Auth/AuthScreen';
 import CategoriesScreen from '../views/Categories/CategoriesScreen';
 import CategoryScreen from '../views/Category/CategoryScreen';
 import NewCategoryScreen from '../views/NewCategory/NewCategoryScreen';
@@ -11,15 +10,7 @@ import NewItemScreen from '../views/NewItem/NewItemScreen';
 import ProfileScreen from '../views/Profile/ProfileScreen';
 
 // Navigator
-const CategoryTab = createStackNavigator({
-  Auth: {
-    screen: AuthScreen,
-    path: '/auth',
-    navigationOptions: () => ({
-      header: null,
-      title: 'Auth',
-    }),
-  },
+export default createStackNavigator({
   Categories: {
     screen: CategoriesScreen,
     path: '/categories',
@@ -61,13 +52,3 @@ const CategoryTab = createStackNavigator({
     }),
   },
 });
-
-export default createStackNavigator(
-  {
-    CategoryTab,
-  },
-  {
-    // initialRouteName: 'Auth',
-    headerMode: 'none',
-  }
-);

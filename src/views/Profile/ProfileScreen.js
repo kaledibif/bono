@@ -1,4 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState,
+  useContext,
+  useEffect
+} from 'react';
 import {
   Alert,
   Text,
@@ -20,9 +24,9 @@ import {
   ActionSheet,
 } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
+import { Context } from "../../context/Context";
 
 import AuthController from "../../controllers/AuthController";
-import CategoryController from "../../controllers/CategoryController";
 import ProfileStyles from './ProfileStyles';
 
 import Strings from '../../constants/Strings';
@@ -30,10 +34,10 @@ import Images from '../../constants/Images';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ProfileScreen = ({ navigation }) => {
+  const [contextData, setContextData] = useContext(Context);
+
   const [language, setLanguage] = useState('')
   const [currency, setCurrency] = useState('')
-  const [categoryCount, setCategoryCount] = useState('')
-  const [itemCount, setItemCount] = useState('')
   const [userInfo, setUserInfo] = useState([])
 
   useEffect(() => {
@@ -56,16 +60,6 @@ const ProfileScreen = ({ navigation }) => {
       setCurrency(currency)
     } else {
       saveAsyncStorage('currency', Strings.profile.currencies[0]);
-    }
-
-    const catCount = await AsyncStorage.getItem('@categoryCount')
-    if (catCount !== null) {
-      setCategoryCount(catCount)
-    }
-
-    const recCount = await AsyncStorage.getItem('@itemCount')
-    if (recCount !== null) {
-      setItemCount(recCount)
     }
   }
 
@@ -165,11 +159,11 @@ const ProfileScreen = ({ navigation }) => {
             <View style={ProfileStyles.usageContainer}>
               <View style={ProfileStyles.usageItem}>
                 <Text style={ProfileStyles.usageTextBold}>Category</Text>
-                <Text style={ProfileStyles.usageText}>{categoryCount} / 32</Text>
+                <Text style={ProfileStyles.usageText}>{(Object.keys(contextData.categories).length)} / 32</Text>
               </View>
               <View style={ProfileStyles.usageItem}>
                 <Text style={ProfileStyles.usageTextBold}>Item</Text>
-                <Text style={ProfileStyles.usageText}>{itemCount} / 1000</Text>
+                <Text style={ProfileStyles.usageText}>{(Object.keys(contextData.items).length)} / 1000</Text>
               </View>
             </View>
           </List>

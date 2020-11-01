@@ -3,26 +3,21 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const collection = 'items'
 
-const _storeData = async (key, value) => {
-  try {
-    await AsyncStorage.setItem(key, value);
-  } catch (error) {
-    alert(error)
-  }
-};
+const getAll = async () => {
+  const userId = firebase.auth().currentUser.uid;
+  const snapshot = await firebase
+    .firestore()
+    .collection(collection)
+    .where('userId', '==', userId)
+    .get()
 
-const _retrieveData = async (key) => {
-  try {
-    const value = await AsyncStorage.getItem(key);
-    if (value !== null) {
-      return value
-    }
-    return false
-  } catch (error) {
-    alert(error)
-    return false
-  }
-};
+  let data = [];
+  snapshot.forEach(doc => {
+    data.push({ id: doc.id, ...doc.data() })
+  });
+
+  return data;
+}
 
 const get = async (category, dateFilter = null) => {
   // const activeMonth = new Date().toLocaleString('default', { month: 'long' })
@@ -70,6 +65,8 @@ const insert = async (obj) => {
   const userId = firebase.auth().currentUser.uid;
   const ref = firebase.firestore().collection(collection)
   const id = ref.doc().id;
+  disableSync()
+
   return await ref
     .doc(id)
     .set(
@@ -87,6 +84,7 @@ const insert = async (obj) => {
 const update = async (obj) => {
   const userId = firebase.auth().currentUser.uid;
   const ref = firebase.firestore().collection(collection)
+  disableSync()
 
   return await ref
     .doc(obj.id)
@@ -104,6 +102,7 @@ const update = async (obj) => {
 
 const remove = async (item) => {
   const ref = firebase.firestore().collection(collection)
+  disableSync()
 
   return await ref
     .doc(item.id)
@@ -117,8 +116,13 @@ const remove = async (item) => {
     })
 }
 
+const disableSync = () => {
+  AsyncStorage.setItem("isSync", JSON.stringify(false), (err) => { }).catch((err) => { });
+}
+
 export default {
   get,
+  getAll,
   insert,
   update,
   remove,

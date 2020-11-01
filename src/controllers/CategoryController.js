@@ -26,6 +26,25 @@ const _retrieveData = async (key) => {
   }
 };
 
+const getAll = async () => {
+  console.warn("getAllCategories")
+  const userId = firebase.auth().currentUser.uid;
+  const snapshot = await firebase
+    .firestore()
+    .collection(collection)
+    .where('userId', '==', userId)
+    .get()
+
+  let data = [];
+
+  snapshot.forEach(async (doc) => {
+    data.push({ id: doc.id, items: [], ...doc.data() })
+  });
+
+  return data;
+}
+
+
 const get = async (type = null, dateFilter = {}) => {
   const userId = firebase.auth().currentUser.uid;
   const ref = firebase
@@ -36,18 +55,12 @@ const get = async (type = null, dateFilter = {}) => {
   const snapshot = await ref.get();
 
   let data = [];
-  let categoryCount = 0;
-  let itemCount = 0;
 
   snapshot.forEach(async (doc) => {
-    categoryCount++;
-    const items = await ItemController.get(doc, dateFilter)
-    itemCount = itemCount + (items.length ? items.length : 0)
-    data.push({ id: doc.id, items: items, ...doc.data() })
+    // const items = await ItemController.get(doc, dateFilter)
+    // itemCount = itemCount + (items.length ? items.length : 0)
+    data.push({ id: doc.id, items: [], ...doc.data() })
   });
-
-  await _storeData('@categoryCount', (categoryCount).toString())
-  await _storeData('@itemCount', (itemCount).toString())
 
   return data;
 }
@@ -66,6 +79,7 @@ const insert = async (obj) => {
       }
     )
     .then(() => {
+      disableSync()
       return true
     })
     .catch((error) => {
@@ -87,6 +101,7 @@ const update = async (obj) => {
       }
     )
     .then(() => {
+      disableSync()
       return true
     })
     .catch((error) => {
@@ -107,6 +122,7 @@ const remove = async (category) => {
   });
 
   await batch.commit();
+  disableSync()
 
   const ref = firebase.firestore().collection(collection)
   return await ref
@@ -121,9 +137,15 @@ const remove = async (category) => {
     })
 }
 
+const disableSync = () => {
+  AsyncStorage.setItem("isSync", JSON.stringify(false), (err) => { }).catch((err) => { });
+}
+
 export default {
   get,
+  getAll,
   insert,
   update,
   remove,
+  disableSync,
 };
