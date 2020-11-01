@@ -43,7 +43,7 @@ const AuthLoadingScreen = ({ navigation }) => {
 
   const getDataStatus = async () => {
     var d1 = new Date();
-    const isSync = await AsyncStorage.getItem("isSync");
+    const isSync = false // await AsyncStorage.getItem("isSync");
 
     // Skip Firebase fetch if local is already up-to date
     if (JSON.parse(isSync) === true) {

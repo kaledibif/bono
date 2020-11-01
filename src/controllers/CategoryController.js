@@ -1,30 +1,7 @@
 import { firebase } from '../config/firebase/firebase'
 import AsyncStorage from '@react-native-community/async-storage';
 
-import ItemController from './ItemController'
-
 const collection = 'categories'
-
-const _storeData = async (key, value) => {
-  try {
-    await AsyncStorage.setItem(key, value);
-  } catch (error) {
-    alert(error)
-  }
-};
-
-const _retrieveData = async (key) => {
-  try {
-    const value = await AsyncStorage.getItem(key);
-    if (value !== null) {
-      return value
-    }
-    return false
-  } catch (error) {
-    alert(error)
-    return false
-  }
-};
 
 const getAll = async () => {
   console.warn("getAllCategories")
@@ -44,8 +21,7 @@ const getAll = async () => {
   return data;
 }
 
-
-const get = async (type = null, dateFilter = {}) => {
+const get = async (dateFilter = {}) => {
   const userId = firebase.auth().currentUser.uid;
   const ref = firebase
     .firestore()

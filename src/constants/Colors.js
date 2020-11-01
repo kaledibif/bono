@@ -4,7 +4,7 @@ export default {
   mainLigher: '#2c83cc',
   mainDarker: '#236ba7',
 
-  income: '#56a500',
+  green: '#56a500',
   expense: '#fc5c65',
 
   // Greyscale

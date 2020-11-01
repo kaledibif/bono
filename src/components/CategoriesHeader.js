@@ -1,14 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import {
-  SegmentedControlIOS,
   View,
-  TouchableOpacity,
 } from 'react-native'
 import {
   Header,
   ActionSheet,
   Left,
-  Text,
   Body,
   Right,
   Title,
@@ -26,7 +23,7 @@ import { Context } from "../context/Context";
 
 const currentMont = new Date();
 
-const CategoriesHeader = ({ segment, onSegmentChange, navigation, dateFilter, incomeCategories, expenseCategories }) => {
+const CategoriesHeader = ({ navigation, dateFilter, expenseCategories }) => {
   const [contextData, setContextData] = useContext(Context);
   const [categories, setCategories] = useState(contextData.categories);
   const [activeMonth, setActiveMonth] = useState(currentMont.toLocaleString('default', { month: 'long' }))
@@ -46,43 +43,11 @@ const CategoriesHeader = ({ segment, onSegmentChange, navigation, dateFilter, in
     )
   }
 
-  const getSegments = () => {
-    return (
-      <SegmentedControlIOS
-        style={CategoriesStyles.segment}
-        tintColor={Colors.mainColor}
-        values={Strings.categories.segments}
-        selectedIndex={Strings.categories.segments.indexOf(segment)}
-        onChange={(event) => {
-          onSegmentChange(Strings.categories.segments[event.nativeEvent.selectedSegmentIndex])
-        }} />
-    )
-  }
-
-  const getCategories = async () => {
-    const data = await CategoryController.get()
-    setCategories(data)
-  }
-
   const getHeader = () => {
     return (
       <View>
         <Header style={CategoriesStyles.header} hasSegment>
-          <Left style={CategoriesStyles.flex1}>
-            <Button
-              transparent
-              onPress={() => {
-                CategoryController.disableSync()
-                navigation.navigate('AuthLoading')
-              }}
-            >
-              <Icon
-                style={CategoriesStyles.headerIcon}
-                type="Feather"
-                name="search"
-              />
-            </Button>
-          </Left>
+          <Left style={CategoriesStyles.flex1} />
           <Body style={CategoriesStyles.flex4} >
             <Title style={CategoriesStyles.headerBoldTitle}>
               {moment(dateFilter).format('MMMM')} {moment(dateFilter).year() === 2020 ? '' : moment(dateFilter).year()}
@@ -94,7 +59,7 @@ const CategoriesHeader = ({ segment, onSegmentChange, navigation, dateFilter, in
               onPress={() => {
                 navigation.navigate(
                   'NewItem',
-                  { navigation, categories: segment === 'Income' ? incomeCategories : expenseCategories }
+                  { navigation, categories: expenseCategories }
                 )
               }}
             >
@@ -118,7 +83,6 @@ const CategoriesHeader = ({ segment, onSegmentChange, navigation, dateFilter, in
             </Button>
           </Right>
         </Header>
-        {getSegments()}
       </View>
     )
   }

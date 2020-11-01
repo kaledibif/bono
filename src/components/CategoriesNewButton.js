@@ -14,7 +14,7 @@ import {
 } from "native-base";
 import Colors from '../constants/Colors';
 
-const NewCategoryButton = ({ segment, navigation }) => {
+const NewCategoryButton = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ListItem
@@ -24,7 +24,7 @@ const NewCategoryButton = ({ segment, navigation }) => {
         last
         activeOpacity={.5}
         onPress={() => {
-          navigation.navigate("NewCategory", { type: segment })
+          navigation.navigate("NewCategory")
         }}
       >
         <Left>

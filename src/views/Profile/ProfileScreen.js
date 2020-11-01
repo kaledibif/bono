@@ -238,16 +238,6 @@ const ProfileScreen = ({ navigation }) => {
               </Right>
             </ListItem>
           </List>
-          {/* <List style={ProfileStyles.list}>
-            <ListItem icon first last onPress={() => { confirmLogout() }}>
-              <Body>
-                <Text style={ProfileStyles.activeButtonText}>{Strings.profile.logout}</Text>
-              </Body>
-              <Right style={ProfileStyles.listItemRight}>
-                <Icon active name="arrow-forward" />
-              </Right>
-            </ListItem>
-          </List> */}
         </View>
       </Content>
     </Container>

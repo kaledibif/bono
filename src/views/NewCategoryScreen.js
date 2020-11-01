@@ -1,17 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
 import {
-  SegmentedControlIOS,
   View,
   Keyboard,
   TouchableOpacity,
 } from "react-native";
+
+// Native Base
 import {
   Button,
   Container,
   Content,
   Form,
+  Body,
   Header,
-  Spinner,
   Title,
   Icon,
   Input,
@@ -24,27 +25,29 @@ import {
   Toast,
 } from "native-base";
 
-import NewCategoryStyles from "./NewCategoryStyles";
+// Context
+import { Context } from "../context/Context";
 
-import CategoryController from "../../controllers/CategoryController";
+// Constants
+import Colors from '../constants/Colors';
+import Strings from '../constants/Strings';
 
-import Colors from '../../constants/Colors';
-import Strings from '../../constants/Strings';
-import ColorPool from '../../constants/ColorPool';
-import IconPool from '../../constants/IconPool';
+// Controllers
+import CategoryController from "../controllers/CategoryController";
 
-import { Context } from "../../context/Context";
+// Data
+import ColorPool from '../assets/data/ColorPool';
+import IconPool from '../assets/data/IconPool';
 
-const segments = ['Expense', 'Income'];
+// Styles
+import CommonStyles from "../styles/CommonStyles";
 
 const NewCategoryScreen = ({ navigation: { state, navigate, goBack } }) => {
   const [contextData, setContextData] = useContext(Context);
   const [categories, setCategories] = useState(contextData.categories);
-
   const [isEdit, setIsEdit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [id, setId] = useState(null);
-  const [type, setType] = useState(segments[0]);
   const [name, setName] = useState('');
   const [createdAt, setCreatedAt] = useState(new Date());
   const [updatedAt, setUpdatedAt] = useState(new Date());
@@ -60,13 +63,9 @@ const NewCategoryScreen = ({ navigation: { state, navigate, goBack } }) => {
       setName(state.params.name)
       setCreatedAt(state.params.createdAt)
       setTreshold(state.params.treshold)
-      setType(state.params.type)
       setColor(state.params.color)
       setIcon(state.params.icon)
       setId(state.params.id)
-    }
-    if (state.params && state.params.type) {
-      setType(state.params.type)
     }
   }, [])
 
@@ -80,7 +79,6 @@ const NewCategoryScreen = ({ navigation: { state, navigate, goBack } }) => {
       createdAt,
       updatedAt,
       name,
-      type,
       color,
       icon,
     }
@@ -111,9 +109,9 @@ const NewCategoryScreen = ({ navigation: { state, navigate, goBack } }) => {
 
   return (
     <Root>
-      <Container style={NewCategoryStyles.container}>
-        <Header style={NewCategoryStyles.header}>
-          <Left style={NewCategoryStyles.flex1Row}>
+      <Container style={CommonStyles.container}>
+        <Header style={CommonStyles.header}>
+          <Left style={CommonStyles.flexRow}>
             <Button
               disabled={loading}
               transparent
@@ -122,50 +120,23 @@ const NewCategoryScreen = ({ navigation: { state, navigate, goBack } }) => {
               }}
             >
               <Icon
-                style={NewCategoryStyles.headerIcon}
+                style={CommonStyles.headerIcon}
                 type="Feather"
                 name="chevron-left"
               />
             </Button>
-            <Title style={NewCategoryStyles.headerTitle}>{Strings.categories.newCategory}</Title>
           </Left>
-          <Right style={NewCategoryStyles.flex1Row}>
-            {loading ? <Spinner
-              color={Colors.mainDarker}
-              size='small'
-              style={NewCategoryStyles.spinner} /> :
-              <Button
-                transparent
-                disabled={loading || !canSave()}
-                onPress={() => {
-                  save()
-                }}
-              >
-                <Text
-                  style={NewCategoryStyles.headerTitle, { color: canSave() ? Colors.mainColor : Colors.fume }}>
-                  {isEdit ? Strings.newCategory.update : Strings.newCategory.save}
-                </Text>
-              </Button>}
+          <Body style={CommonStyles.flexCenter}>
+            <Title style={CommonStyles.headerTitle}>{Strings.categories.newCategory}</Title>
+          </Body>
+          <Right style={CommonStyles.flexRow}>
+            <Text />
           </Right>
         </Header>
-        <Content scrollEnabled={true} style={NewCategoryStyles.content}>
-          <Form style={NewCategoryStyles.form}>
-            {isEdit === false ? <View>
-              {/* <Item style={NewCategoryStyles.item}>
-                <Label style={NewCategoryStyles.label}>{Strings.newCategory.type}</Label>
-              </Item> */}
-              <SegmentedControlIOS
-                style={NewCategoryStyles.segment}
-                tintColor={Colors.mainColor}
-                values={segments}
-                selectedIndex={segments.indexOf(type)}
-                onChange={(event) => {
-                  setType(segments[event.nativeEvent.selectedSegmentIndex])
-                }}
-              />
-            </View> : null}
-            <Item first last style={NewCategoryStyles.firstItem}>
-              <Label style={NewCategoryStyles.label}>{Strings.newCategory.name}</Label>
+        <Content scrollEnabled={true}>
+          <Form style={CommonStyles.form}>
+            <Item first last style={CommonStyles.firstItem}>
+              <Label style={CommonStyles.label}>{Strings.newCategory.name}</Label>
               <Input
                 disabled={loading}
                 defaultValue={name}
@@ -174,12 +145,12 @@ const NewCategoryScreen = ({ navigation: { state, navigate, goBack } }) => {
                 placeholder={Strings.newCategory.namePlaceholder}
                 placeholderTextColor={Colors.lightgrey}
                 returnKeyType={'done'}
-                style={NewCategoryStyles.input}
+                style={CommonStyles.input}
               />
             </Item>
-            <Item first last style={NewCategoryStyles.secItem}
+            <Item first last style={CommonStyles.secItem}
               onPress={() => { }}>
-              <Label style={NewCategoryStyles.label}>{Strings.newCategory.treshold}</Label>
+              <Label style={CommonStyles.label}>{Strings.newCategory.treshold}</Label>
               <Input
                 disabled={loading}
                 defaultValue={treshold}
@@ -188,46 +159,46 @@ const NewCategoryScreen = ({ navigation: { state, navigate, goBack } }) => {
                 keyboardType="numeric"
                 returnKeyType={'done'}
                 placeholderTextColor={Colors.lightgrey}
-                style={NewCategoryStyles.input}
+                style={CommonStyles.input}
               />
             </Item>
-            <Item first last style={NewCategoryStyles.secItem}
+            <Item first last style={CommonStyles.secItem}
               onPress={() => {
                 Keyboard.dismiss()
                 setPickIcon(!pickIcon)
               }}>
-              <Label style={NewCategoryStyles.label}>{Strings.newCategory.icon}</Label>
+              <Label style={CommonStyles.label}>{Strings.newCategory.icon}</Label>
               <View
-                style={NewCategoryStyles.input}
+                style={CommonStyles.input}
                 activeOpacity={0.9}
               >
                 <Icon
                   name={icon}
-                  style={[NewCategoryStyles.pick, { color: color }]}
+                  style={[CommonStyles.pick, { color: color }]}
                   type="Feather"
                 />
               </View>
             </Item>
-            <Item first last style={NewCategoryStyles.secItem}
+            <Item first last style={CommonStyles.secItem}
               onPress={() => {
                 Keyboard.dismiss()
                 setPickColor(!pickColor)
               }}>
-              <Label style={NewCategoryStyles.label}>{Strings.newCategory.color}</Label>
+              <Label style={CommonStyles.label}>{Strings.newCategory.color}</Label>
               <View
-                style={NewCategoryStyles.input}
+                style={CommonStyles.input}
                 activeOpacity={0.9}
               >
                 <Icon
                   name="sun"
-                  style={[NewCategoryStyles.pick, { color: color }]}
+                  style={[CommonStyles.pick, { color: color }]}
                   type="Feather"
                 />
               </View>
             </Item>
             {pickIcon ? (
               <View>
-                <View style={NewCategoryStyles.cellWrapperCategory}>
+                <View style={CommonStyles.cellWrapperCategory}>
                   {IconPool.map(icon => (
                     <TouchableOpacity
                       key={icon.name}
@@ -235,11 +206,11 @@ const NewCategoryScreen = ({ navigation: { state, navigate, goBack } }) => {
                         setPickIcon(false)
                         setIcon(icon.name);
                       }}
-                      style={NewCategoryStyles.pickCell}
+                      style={CommonStyles.pickCell}
                     >
                       <Icon
                         type="Feather"
-                        style={[NewCategoryStyles.cellIcon, { color: color }]}
+                        style={[CommonStyles.cellIcon, { color: color }]}
                         name={icon.name}
                       />
                     </TouchableOpacity>
@@ -249,7 +220,7 @@ const NewCategoryScreen = ({ navigation: { state, navigate, goBack } }) => {
             ) : null}
             {pickColor ? (
               <View>
-                <View style={NewCategoryStyles.cellWrapperCategory}>
+                <View style={CommonStyles.cellWrapperCategory}>
                   {ColorPool.map(color => (
                     <TouchableOpacity
                       key={color.name}
@@ -257,11 +228,11 @@ const NewCategoryScreen = ({ navigation: { state, navigate, goBack } }) => {
                         setPickColor(false)
                         setColor(color.name);
                       }}
-                      style={NewCategoryStyles.pickCell}
+                      style={CommonStyles.pickCell}
                     >
                       <Icon
                         type="Ionicons"
-                        style={[NewCategoryStyles.cellIcon, { color: color.name }]}
+                        style={[CommonStyles.cellIcon, { color: color.name }]}
                         name="ios-radio-button-on"
                       />
                     </TouchableOpacity>
@@ -270,6 +241,33 @@ const NewCategoryScreen = ({ navigation: { state, navigate, goBack } }) => {
               </View>
             ) : null}
           </Form>
+          <View style={CommonStyles.buttonContainer}>
+            <Button
+              block
+              style={CommonStyles.button}
+              disabled={loading || !canSave()}
+              onPress={() => {
+                save()
+              }}
+            >
+              <Text style={CommonStyles.buttonText}>
+                {isEdit ? Strings.newItem.update : Strings.newItem.save}
+              </Text>
+            </Button>
+            {isEdit ?
+              <Button
+                block
+                style={CommonStyles.buttonLight}
+                disabled={loading || !canSave()}
+                onPress={() => {
+                  save()
+                }}
+              >
+                <Text style={CommonStyles.buttonTextLight}>
+                  {Strings.newItem.delete}
+                </Text>
+              </Button> : null}
+          </View>
         </Content>
       </Container>
     </Root>

@@ -31,7 +31,6 @@ import { firebase } from '../../config/firebase/firebase'
 import AuthController from '../../controllers/AuthController'
 import AuthStyles from "./AuthStyles"
 
-import LottieAnimation from '../../components/LottieAnimation'
 import Strings from '../../constants/Strings'
 import { Validators } from "../../utils/Validators"
 
@@ -112,8 +111,6 @@ const AuthScreen = ({ navigation }) => {
           <Right style={AuthStyles.flex1} />
         </Header>
         <Content scrollEnabled={false}>
-          {type === 'login' ?
-            <LottieAnimation /> : null}
           <Form style={AuthStyles.form}>
             {type === 'register' ? (
               <Item stackedLabel>

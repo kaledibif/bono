@@ -79,13 +79,6 @@ const CategoryPicker = ({ category, categories, onPicked }) => {
                   style={[styles.listLeftIcon, { color: category.color }]}
                 />
                 <Text style={styles.categoryItemText}>{category.name}</Text>
-                <View style={styles.categoryTypeTextContainer}>
-                  <Text
-                    style={
-                      [styles.categoryTypeText,
-                      { color: category.type === 'Expense' ? Colors.expense : Colors.income }
-                      ]}>{category.type}</Text>
-                </View>
               </Body>
               <Right>
                 <Radio

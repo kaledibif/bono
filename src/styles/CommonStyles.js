@@ -1,35 +1,28 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import Colors from '../../constants/Colors';
+import Colors from '../constants/Colors';
 
 const screenWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
-  // Container
+  // Scene Elemens
   container: {
     backgroundColor: Colors.itemGroupsOutside,
   },
-  flex1: {
-    flex: 1,
-  },
-  flex4: {
-    flex: 4,
+  flexCenter: {
+    flex: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row'
   },
   flexRow: {
-    flexDirection: "row"
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'row'
   },
-  spinner: {
-    marginLeft: 8,
-  },
-  // Container
 
   // Header
   header: {
     backgroundColor: Colors.headerBackground,
-  },
-  flex1Row: {
-    flex: 1,
-    alignItems: 'center',
-    flexDirection: 'row'
   },
   headerTitle: {
     color: Colors.shadow,
@@ -41,26 +34,42 @@ export default StyleSheet.create({
   headerGreyIcon: {
     color: Colors.mainColor,
   },
-  // Header
 
-  // Form
-  pick: {
-    marginLeft: -2,
-  },
-  spinner: {
-    marginRight: 12,
-  },
+  // Form Elements
   form: {
     marginTop: -1,
     backgroundColor: Colors.white,
   },
-  separator: {
-    backgroundColor: Colors.itemGroupsOutside,
+  item: {
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.gum,
+    height: 48,
+    marginLeft: 0,
+    marginRight: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-  separatorText: {
-    marginLeft: 4,
-    fontSize: 16,
+  input: {
+    flex: 1,
+    color: Colors.shadow,
+    fontSize: 15,
     fontFamily: 'montserrat-medium',
+  },
+  iconTO: {
+    width: 36,
+    justifyContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10,
+  },
+  currencyText: {
+    fontSize: 22,
+    color: Colors.mainColor,
+    marginRight: 6
+  },
+  pick: {
+    marginLeft: -2,
   },
   firstItem: {
     height: 48,
@@ -79,25 +88,6 @@ export default StyleSheet.create({
     marginLeft: 4,
     color: Colors.fume,
   },
-  input: {
-    flex: 1,
-    fontFamily: 'montserrat-medium',
-    fontSize: 15,
-    marginLeft: -24,
-  },
-  item: {
-    height: 48,
-    borderBottomWidth: 0,
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  segment: {
-    marginHorizontal: 16,
-    marginBottom: 8,
-    marginTop: 12,
-  },
   // Form
   cellWrapperCategory: {
     flexWrap: 'wrap',
@@ -114,5 +104,29 @@ export default StyleSheet.create({
   },
   cellIcon: {
     fontSize: 22,
+  },
+
+  // Button Actions
+  buttonContainer: {
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'row',
+    margin: 10,
+  },
+  button: {
+    flex: 2,
+    margin: 4,
+    backgroundColor: Colors.mainColor,
+  },
+  buttonLight: {
+    flex: 1,
+    margin: 4,
+    backgroundColor: Colors.gum,
+  },
+  buttonText: {
+    color: Colors.white,
+  },
+  buttonTextLight: {
+    color: Colors.dark,
   },
 });

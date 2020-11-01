@@ -31,15 +31,6 @@ export default StyleSheet.create({
   header: {
     backgroundColor: Colors.headerBackground,
   },
-  segmentContainter: {
-    height: 42,
-  },
-  segment: {
-    backgroundColor: Colors.headerBackground,
-    marginTop: 4,
-    marginBottom: 10,
-    marginHorizontal: 16,
-  },
   headRow: {
     justifyContent: 'space-between',
     flexDirection: 'row',

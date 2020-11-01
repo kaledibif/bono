@@ -1,6 +1,6 @@
-# BONO - Basic Income & Expense Manager
+# BONO - Basic Expense Manager
 
-This is a simple Expo + Firebase project for basic Expense & Income management. It includes:
+This is a simple Expo + Firebase project for basic Expense management. It includes:
 
 - based on Expo SDK `38.x.x`
 - navigation using `react-navigation` 3.11.0
@@ -46,8 +46,22 @@ $ expo start
 ## Screens
 
 - Login / Register
-- Categories (Expense & Income)
+- Categories
 - New / Update Category
 - New / Update Item
 - Profile
 
+###### Async Stored Data
+
+- isSync (bool)
+- Categories (JSON)
+- Items (JSON)
+- Currency (String)
+- Language (String)
+
+###### Firebase Stored Data
+
+- Categories (JSON)
+- Items (JSON)
+- Email
+- Name

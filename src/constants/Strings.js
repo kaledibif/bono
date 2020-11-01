@@ -20,11 +20,10 @@ export default {
     }
   },
   categories: {
-    segments: ['Expense', 'Income'],
     header: {
       title: 'Categories',
     },
-    newCategory: 'Add Category',
+    newCategory: 'New Category',
   },
   category: {
     buttons: [
@@ -47,6 +46,7 @@ export default {
     tresholdPlaceholder: 'Value',
     save: 'Save',
     update: 'Update',
+    delete: 'Delete',
     nothingFoundText: 'No category found!',
     color: 'Color',
     icon: 'Icon',
@@ -56,10 +56,11 @@ export default {
       title: 'New Expense',
       editTitle: 'Update Expense',
     },
-    title: 'Add Record',
+    title: 'New Expense',
     clear: 'Clear',
     save: 'Save',
     update: 'Update',
+    delete: 'Delete',
     actionButtons: ['Take Image', 'Pick From Library', 'Cancel'],
     cancelIndex: 2,
   },

@@ -5,8 +5,8 @@ import {
 // Screens
 import CategoriesScreen from '../views/Categories/CategoriesScreen';
 import CategoryScreen from '../views/Category/CategoryScreen';
-import NewCategoryScreen from '../views/NewCategory/NewCategoryScreen';
-import NewItemScreen from '../views/NewItem/NewItemScreen';
+import NewCategoryScreen from '../views/NewCategoryScreen';
+import NewItemScreen from '../views/NewItemScreen';
 import ProfileScreen from '../views/Profile/ProfileScreen';
 
 // Navigator

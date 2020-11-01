@@ -10,6 +10,7 @@ import {
   Form,
   Header,
   Icon,
+  Body,
   Input,
   Item,
   Text,
@@ -21,22 +22,22 @@ import {
 } from 'native-base';
 
 // Components
-import DatePicker from '../../components/DatePicker';
-import CategoryPicker from '../../components/CategoryPicker';
-import ImagePickerTaker from '../../components/ImagePickerTaker';
-import LoadingSpinner from '../../components/LoadingSpinner';
+import DatePicker from '../components/DatePicker';
+import CategoryPicker from '../components/CategoryPicker';
+import ImagePickerTaker from '../components/ImagePickerTaker';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 // Styles
-import NewItemStyles from "./NewItemStyles";
-import Colors from '../../constants/Colors';
+import CommonStyles from "../styles/CommonStyles"
+import Colors from '../constants/Colors';
 import moment from 'moment';
 
 // Strings
-import Strings from '../../constants/Strings';
-import CategoryController from '../../controllers/CategoryController';
+import Strings from '../constants/Strings';
+import CategoryController from '../controllers/CategoryController';
 
-import { Context } from '../../context/Context'
-import ItemController from '../../controllers/ItemController';
+import { Context } from '../context/Context'
+import ItemController from '../controllers/ItemController';
 
 const NewItemScreen = ({ navigation }) => {
   const category = navigation.state.params.category
@@ -152,7 +153,7 @@ const NewItemScreen = ({ navigation }) => {
 
     return (
       <Content>
-        <Form style={NewItemStyles.form}>
+        <Form style={CommonStyles.form}>
           <CategoryPicker
             category={category}
             isEdit={isEdit}
@@ -163,10 +164,10 @@ const NewItemScreen = ({ navigation }) => {
               setCategoryId(value.id)
               setCategoryName(value.name)
             }} />
-          <Item last style={NewItemStyles.item}>
+          <Item last style={CommonStyles.item}>
             <Input
               disabled={loading}
-              style={NewItemStyles.input}
+              style={CommonStyles.input}
               placeholder="Record Name"
               returnKeyType={'done'}
               placeholderTextColor={Colors.lightgrey}
@@ -174,11 +175,11 @@ const NewItemScreen = ({ navigation }) => {
               onChangeText={name => setName(name)}
             />
           </Item>
-          <Item last style={NewItemStyles.item}>
+          <Item last style={CommonStyles.item}>
             <Input
               disabled={loading}
               keyboardType="number-pad"
-              style={NewItemStyles.input}
+              style={CommonStyles.input}
               placeholder="Value"
               autoCapitalize="none"
               returnKeyType={'done'}
@@ -186,19 +187,19 @@ const NewItemScreen = ({ navigation }) => {
               defaultValue={value.toString()}
               onChangeText={val => setValue(parseFloat(val))}
             />
-            <View style={NewItemStyles.flexRow}>
-              <View style={NewItemStyles.iconTO}>
-                <Text style={NewItemStyles.currencyText}>₺</Text>
+            <View style={CommonStyles.flexRow}>
+              <View style={CommonStyles.iconTO}>
+                <Text style={CommonStyles.currencyText}>₺</Text>
               </View>
             </View>
           </Item>
           <DatePicker
             date={date}
             onDateChange={(date) => setDate(date)} />
-          <Item last style={NewItemStyles.item}>
+          <Item last style={CommonStyles.item}>
             <Input
               disabled={loading}
-              style={NewItemStyles.input}
+              style={CommonStyles.input}
               placeholder="Notes"
               returnKeyType={'done'}
               placeholderTextColor={Colors.lightgrey}
@@ -213,15 +214,42 @@ const NewItemScreen = ({ navigation }) => {
               setImages(images)
             }} />
         </Form>
+        <View style={CommonStyles.buttonContainer}>
+          <Button
+            block
+            style={CommonStyles.button}
+            disabled={loading || !canSave()}
+            onPress={() => {
+              save()
+            }}
+          >
+            <Text style={CommonStyles.buttonText}>
+              {isEdit ? Strings.newCategory.update : Strings.newCategory.save}
+            </Text>
+          </Button>
+          {isEdit ?
+            <Button
+              block
+              style={CommonStyles.buttonLight}
+              disabled={loading || !canSave()}
+              onPress={() => {
+                save()
+              }}
+            >
+              <Text style={CommonStyles.buttonTextLight}>
+                {Strings.newCategory.delete}
+              </Text>
+            </Button> : null}
+        </View>
       </Content>
     );
   }
 
   return (
     <Root>
-      <Container style={NewItemStyles.container}>
-        <Header style={NewItemStyles.header}>
-          <Left style={NewItemStyles.flex1Row}>
+      <Container style={CommonStyles.container}>
+        <Header style={CommonStyles.header}>
+          <Left style={CommonStyles.flexRow}>
             <Button
               disabled={loading}
               transparent
@@ -231,38 +259,17 @@ const NewItemScreen = ({ navigation }) => {
               }}
             >
               <Icon
-                style={NewItemStyles.headerIcon}
+                style={CommonStyles.headerIcon}
                 type="Feather"
                 name="chevron-left"
               />
             </Button>
-            <Title style={NewItemStyles.headerTitle}>{Strings.newItem.title}</Title>
           </Left>
-          <Right>
-            <Button
-              disabled={loading || !canSave()}
-              transparent
-              onPress={() => {
-                save()
-              }}
-            >
-              <Text style={[NewItemStyles.headerTitle, { color: canSave() ? Colors.mainColor : Colors.fume }]}>
-                {isEdit ? Strings.newItem.update : Strings.newItem.save}
-              </Text>
-            </Button>
-            {isEdit ?
-              <Button
-                transparent
-                onPress={() => {
-                  confirmRemove()
-                }}
-              >
-                <Icon
-                  style={NewItemStyles.headerSmallIcon}
-                  type="Feather"
-                  name="trash-2"
-                />
-              </Button> : null}
+          <Body style={CommonStyles.flexCenter}>
+            <Title style={CommonStyles.headerTitle}>{Strings.newItem.title}</Title>
+          </Body>
+          <Right style={CommonStyles.flexRow}>
+            <Text />
           </Right>
         </Header>
         {getContent()}
