@@ -14,10 +14,8 @@ import {
 } from 'native-base'
 var moment = require('moment');
 
-import CategoriesStyles from '../views/Categories/CategoriesStyles'
-import Colors from '../constants/Colors'
+import CommonStyles from '../styles/CommonStyles'
 import Strings from '../constants/Strings'
-import CategoryController from '../controllers/CategoryController'
 
 import { Context } from "../context/Context";
 
@@ -46,14 +44,14 @@ const CategoriesHeader = ({ navigation, dateFilter, expenseCategories }) => {
   const getHeader = () => {
     return (
       <View>
-        <Header style={CategoriesStyles.header} hasSegment>
-          <Left style={CategoriesStyles.flex1} />
-          <Body style={CategoriesStyles.flex4} >
-            <Title style={CategoriesStyles.headerBoldTitle}>
+        <Header style={CommonStyles.header} hasSegment>
+          <Left style={CommonStyles.flexRow} />
+          <Body style={CommonStyles.flexCenter} >
+            <Title style={CommonStyles.headerTitle}>
               {moment(dateFilter).format('MMMM')} {moment(dateFilter).year() === 2020 ? '' : moment(dateFilter).year()}
             </Title>
           </Body>
-          <Right style={CategoriesStyles.flex1}>
+          <Right style={CommonStyles.flexRow}>
             <Button
               transparent
               onPress={() => {
@@ -64,7 +62,7 @@ const CategoriesHeader = ({ navigation, dateFilter, expenseCategories }) => {
               }}
             >
               <Icon
-                style={CategoriesStyles.headerIcon}
+                style={CommonStyles.headerIcon}
                 type="Feather"
                 name="plus"
               />
@@ -76,7 +74,7 @@ const CategoriesHeader = ({ navigation, dateFilter, expenseCategories }) => {
               }}
             >
               <Icon
-                style={CategoriesStyles.headerRightIcon}
+                style={CommonStyles.headerIcon}
                 type="Feather"
                 name="user"
               />
@@ -88,7 +86,7 @@ const CategoriesHeader = ({ navigation, dateFilter, expenseCategories }) => {
   }
 
   return (
-    <View style={CategoriesStyles.headerContainer} >
+    <View style={CommonStyles.headerContainer} >
       {getHeader()}
     </View>
   )

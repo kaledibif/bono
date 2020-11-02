@@ -14,10 +14,10 @@ This is a simple Expo + Firebase project for basic Expense management. It includ
 
 Login Screen | Register Screen
 :-------------------------:|:-------------------------:
-![](SS/login.png)          |  ![](SS/register.png)
-![](SS/categories.png)     |  ![](SS/category.png)
-![](SS/add-category.png)   |  ![](SS/add-item.png)
-![](SS/profile.png)        |
+![](src/assets/screenshots/login.png)          |  ![](src/assets/screenshots/register.png)
+![](src/assets/screenshots/categories.png)     |  ![](src/assets/screenshots/category.png)
+![](src/assets/screenshots/add-category.png)   |  ![](src/assets/screenshots/add-item.png)
+![](src/assets/screenshots/profile.png)        |
 
 ## Installation
 

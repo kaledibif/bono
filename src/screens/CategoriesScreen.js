@@ -8,15 +8,15 @@ import {
   Root,
 } from "native-base";
 var moment = require('moment');
-import LoadingSpinner from '../../components/LoadingSpinner';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 // Components 
-import CategoriesHeader from '../../components/CategoriesHeader';
-import ExpenseContainer from '../../components/ExpenseContainer';
-import CategoriesNewButton from '../../components/CategoriesNewButton';
+import CategoriesHeader from '../components/CategoriesHeader';
+import ExpenseContainer from '../components/ExpenseContainer';
+import CategoriesNewButton from '../components/CategoriesNewButton';
 
-import CategoriesStyles from "./CategoriesStyles";
-import { Context } from "../../context/Context";
+import CommonStyles from "../styles/CommonStyles";
+import { Context } from "../context/Context";
 
 const CategoriesScreen = ({ navigation }) => {
   const [contextData, setContextData] = useContext(Context);
@@ -66,7 +66,7 @@ const CategoriesScreen = ({ navigation }) => {
   return (
     <Root>
       {/* <NavigationEvents onDidFocus={async () => getCategories()} /> */}
-      <Container style={CategoriesStyles.container}>
+      <Container style={CommonStyles.container}>
         <CategoriesHeader
           navigation={navigation}
           dateFilter={dateFilter}
@@ -76,7 +76,7 @@ const CategoriesScreen = ({ navigation }) => {
         />
         <Content
           showsVerticalScrollIndicator={false}
-          style={CategoriesStyles.content}>
+          style={CommonStyles.content}>
           {getContent()}
         </Content>
       </Container>

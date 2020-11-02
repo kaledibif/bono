@@ -19,20 +19,20 @@ import {
 } from "native-base";
 
 // Components
-import LoadingSpinner from '../../components/LoadingSpinner';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 // Strings
-import Strings from "../../constants/Strings";
+import Strings from "../constants/Strings";
 
 // Styles
-import CategoryStyles from "./CategoryStyles";
+import CommonStyles from "../styles/CommonStyles";
 
 // Services 
-import CategoryController from '../../controllers/CategoryController';
-import ListCategoryItems from "../../components/ListCategoryItems";
-import ItemController from "../../controllers/ItemController";
+import CategoryController from '../controllers/CategoryController';
+import ListCategoryItems from "../components/ListCategoryItems";
+import ItemController from "../controllers/ItemController";
 
-import { Context } from "../../context/Context";
+import { Context } from "../context/Context";
 
 const CategoryScreen = ({ navigation }) => {
   const [contextData, setContextData] = useContext(Context);
@@ -117,8 +117,8 @@ const CategoryScreen = ({ navigation }) => {
   return (
     <Root>
       <Container>
-        <Header style={CategoryStyles.header}>
-          <Left style={CategoryStyles.flex1Row}>
+        <Header style={CommonStyles.header}>
+          <Left style={CommonStyles.flex1Row}>
             <Button
               transparent
               onPress={() => {
@@ -126,16 +126,16 @@ const CategoryScreen = ({ navigation }) => {
               }}
             >
               <Icon
-                style={CategoryStyles.headerIcon}
+                style={CommonStyles.headerIcon}
                 type="Feather"
                 name="chevron-left"
               />
             </Button>
           </Left>
-          <Body style={CategoryStyles.flexBody}>
-            <Title style={CategoryStyles.headerTitle}>{category.name}</Title>
+          <Body style={CommonStyles.flexBody}>
+            <Title style={CommonStyles.headerTitle}>{category.name}</Title>
           </Body>
-          <Right style={CategoryStyles.flex1}>
+          <Right style={CommonStyles.flex1}>
             <Button
               transparent
               onPress={() => {
@@ -143,7 +143,7 @@ const CategoryScreen = ({ navigation }) => {
               }}
             >
               <Icon
-                style={CategoryStyles.headerMidIcon}
+                style={CommonStyles.headerMidIcon}
                 type="Feather"
                 name="plus"
               />
@@ -153,14 +153,14 @@ const CategoryScreen = ({ navigation }) => {
               onPress={() => handleActionSheet()}
             >
               <Icon
-                style={CategoryStyles.headerGreyIcon}
+                style={CommonStyles.headerGreyIcon}
                 type="Feather"
                 name="more-horizontal"
               />
             </Button>
           </Right>
         </Header>
-        <Content style={CategoryStyles.content}>
+        <Content style={CommonStyles.content}>
           {getContent()}
         </Content>
       </Container>

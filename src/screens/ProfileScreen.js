@@ -24,13 +24,13 @@ import {
   ActionSheet,
 } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Context } from "../../context/Context";
+import { Context } from "../context/Context";
 
-import AuthController from "../../controllers/AuthController";
+import AuthController from "../controllers/AuthController";
 import ProfileStyles from './ProfileStyles';
 
-import Strings from '../../constants/Strings';
-import Images from '../../constants/Images';
+import Strings from '../constants/Strings';
+import Images from '../constants/Images';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ProfileScreen = ({ navigation }) => {

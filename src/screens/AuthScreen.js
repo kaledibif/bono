@@ -26,13 +26,13 @@ import {
   Title,
   Toast,
 } from "native-base";
-import { firebase } from '../../config/firebase/firebase'
+import { firebase } from '../config/firebase/firebase'
 
-import AuthController from '../../controllers/AuthController'
+import AuthController from '../controllers/AuthController'
 import AuthStyles from "./AuthStyles"
 
-import Strings from '../../constants/Strings'
-import { Validators } from "../../utils/Validators"
+import Strings from '../constants/Strings'
+import { Validators } from "../utils/Validators"
 
 const AuthScreen = ({ navigation }) => {
   const [type, setType] = useState('login')

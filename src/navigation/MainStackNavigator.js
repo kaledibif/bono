@@ -3,11 +3,11 @@ import {
 } from 'react-navigation';
 
 // Screens
-import CategoriesScreen from '../views/Categories/CategoriesScreen';
-import CategoryScreen from '../views/Category/CategoryScreen';
-import NewCategoryScreen from '../views/NewCategoryScreen';
-import NewItemScreen from '../views/NewItemScreen';
-import ProfileScreen from '../views/Profile/ProfileScreen';
+import CategoriesScreen from '../screens/CategoriesScreen';
+import CategoryScreen from '../screens/CategoryScreen';
+import NewCategoryScreen from '../screens/NewCategoryScreen';
+import NewItemScreen from '../screens/NewItemScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 // Navigator
 export default createStackNavigator({
