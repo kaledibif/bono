@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 import Colors from '../constants/Colors';
 
 export default StyleSheet.create({
@@ -24,7 +24,7 @@ export default StyleSheet.create({
     marginLeft: 8,
   },
   headerLeftText: {
-    marginLeft: 8,
+    fontSize: 24,
     color: Colors.white,
   },
   // Header
@@ -37,8 +37,12 @@ export default StyleSheet.create({
   spinner: {
     marginLeft: 16,
   },
+  titleContainer: {
+    marginTop: 36,
+    marginHorizontal: 15,
+  },
   form: {
-    marginTop: 12,
+    marginTop: 24,
     marginBottom: 36,
   },
   label: {

@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
-import Colors from '../../constants/Colors';
+import { StyleSheet } from "react-native";
+import Colors from "../constants/Colors";
 
 const ProfileStyles = StyleSheet.create({
   header: {
@@ -7,7 +7,7 @@ const ProfileStyles = StyleSheet.create({
   },
   headerTitle: {
     color: Colors.shadow,
-    fontFamily: 'montserrat-semi-bold',
+    fontFamily: "montserrat-semi-bold",
   },
   flex1: {
     flex: 1,
@@ -20,18 +20,13 @@ const ProfileStyles = StyleSheet.create({
   },
   headerGreyIconPlus: {
     color: Colors.mainColor,
-    color: Colors.fume,
     fontSize: 16,
   },
   headerGreyIcon: {
-    color: Colors.mainColor,
     color: Colors.fume,
   },
   headerBG: {
     backgroundColor: Colors.white,
-  },
-  headerIcon: {
-    color: Colors.mainColor,
   },
   content: {
     backgroundColor: Colors.itemGroupsOutside,
@@ -44,8 +39,8 @@ const ProfileStyles = StyleSheet.create({
   },
   iconListContainer: {
     marginTop: 24,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingLeft: 24,
     backgroundColor: Colors.white,
     marginHorizontal: -16,
@@ -55,21 +50,21 @@ const ProfileStyles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   seperatorContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: 12,
   },
   itemDivider: {
-    color: Colors.fume
+    color: Colors.fume,
   },
   getMoreText: {
     marginRight: 8,
     color: Colors.mainDarker,
-    fontFamily: 'montserrat-semi-bold',
+    fontFamily: "montserrat-semi-bold",
   },
   usageMainContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingLeft: 24,
     backgroundColor: Colors.white,
     marginHorizontal: -16,
@@ -83,23 +78,23 @@ const ProfileStyles = StyleSheet.create({
   },
   usageContainer: {
     flex: 1,
-    justifyContent: 'space-between',
-    flexDirection: 'row',
+    justifyContent: "space-between",
+    flexDirection: "row",
     marginHorizontal: 8,
-    marginVertical: 16
+    marginVertical: 16,
   },
   usageItem: {
     flex: 1,
   },
   usageTextBold: {
     fontFamily: 'montserrat-medium',
-    color: Colors.fume
+    color: Colors.fume,
   },
   usageText: {
     marginTop: 8,
     fontSize: 14,
     fontFamily: 'montserrat-medium',
-    color: Colors.shadow
+    color: Colors.shadow,
   },
   list: {
     paddingLeft: 16,
@@ -111,8 +106,8 @@ const ProfileStyles = StyleSheet.create({
   },
   LGView: {
     marginTop: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   listItem: {
     height: 56,
@@ -127,7 +122,7 @@ const ProfileStyles = StyleSheet.create({
   logout: {
     fontSize: 16,
     color: Colors.mainColor,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   listItemRight: {
     marginRight: 16,
@@ -144,21 +139,21 @@ const ProfileStyles = StyleSheet.create({
   buttonText: {
     color: Colors.mainColor,
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   listItemText: {
     color: Colors.shadow,
-    fontFamily: 'montserrat-medium',
+    fontFamily: "montserrat-medium",
   },
   listItemRightText: {
     color: Colors.fume,
     marginTop: 4,
-    fontFamily: 'montserrat-medium',
+    fontFamily: "montserrat-medium",
   },
   activeButtonText: {
     color: Colors.mainColor,
-    fontFamily: 'montserrat-bold',
-  }
+    fontFamily: "montserrat-bold",
+  },
 });
 
-export default ProfileStyles
+export default ProfileStyles;

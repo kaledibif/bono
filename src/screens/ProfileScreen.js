@@ -27,7 +27,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { Context } from "../context/Context";
 
 import AuthController from "../controllers/AuthController";
-import ProfileStyles from './ProfileStyles';
+import ProfileStyles from '../styles/ProfileStyles';
 
 import Strings from '../constants/Strings';
 import Images from '../constants/Images';

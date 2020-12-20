@@ -67,9 +67,6 @@ const CategoryScreen = ({ navigation }) => {
     setLoading(true)
     let status = await CategoryController.remove(category);
     if (status) {
-      // var obj = JSON.parse(JSON.stringify(categories));
-      // var newObj = obj.filter(item => item.id != category.id);
-      // setCategories(newObj)
       setCategories(categories.filter(item => item.id != category.id))
       navigation.goBack();
     }

@@ -3,7 +3,7 @@ import {
 } from 'react-navigation';
 
 // Screens
-import AuthScreen from '../views/Auth/AuthScreen';
+import AuthScreen from '../screens/AuthScreen';
 
 // Navigator
 export default createStackNavigator({

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext } from "react";
 import {
   View,
 } from 'react-native'
@@ -43,45 +43,43 @@ const CategoriesHeader = ({ navigation, dateFilter, expenseCategories }) => {
 
   const getHeader = () => {
     return (
-      <View>
-        <Header style={CommonStyles.header} hasSegment>
-          <Left style={CommonStyles.flexRow} />
-          <Body style={CommonStyles.flexCenter} >
-            <Title style={CommonStyles.headerTitle}>
-              {moment(dateFilter).format('MMMM')} {moment(dateFilter).year() === 2020 ? '' : moment(dateFilter).year()}
-            </Title>
-          </Body>
-          <Right style={CommonStyles.flexRow}>
-            <Button
-              transparent
-              onPress={() => {
-                navigation.navigate(
-                  'NewItem',
-                  { navigation, categories: expenseCategories }
-                )
-              }}
-            >
-              <Icon
-                style={CommonStyles.headerIcon}
-                type="Feather"
-                name="plus"
-              />
-            </Button>
-            <Button
-              transparent
-              onPress={() => {
-                navigation.navigate('Profile', navigation)
-              }}
-            >
-              <Icon
-                style={CommonStyles.headerIcon}
-                type="Feather"
-                name="user"
-              />
-            </Button>
-          </Right>
-        </Header>
-      </View>
+      <Header style={CommonStyles.header} hasSegment>
+        <Left style={CommonStyles.flexRow} />
+        <Body style={CommonStyles.flexCenter} >
+          <Title style={CommonStyles.headerTitle}>
+            {moment(dateFilter).format('MMMM')} {moment(dateFilter).year() === 2020 ? '' : moment(dateFilter).year()}
+          </Title>
+        </Body>
+        <Right style={CommonStyles.flexRow}>
+          <Button
+            transparent
+            onPress={() => {
+              navigation.navigate(
+                'NewItem',
+                { navigation, categories: expenseCategories }
+              )
+            }}
+          >
+            <Icon
+              style={CommonStyles.headerIcon}
+              type="Feather"
+              name="plus"
+            />
+          </Button>
+          <Button
+            transparent
+            onPress={() => {
+              navigation.navigate('Profile', navigation)
+            }}
+          >
+            <Icon
+              style={CommonStyles.headerIcon}
+              type="Feather"
+              name="user"
+            />
+          </Button>
+        </Right>
+      </Header>
     )
   }
 

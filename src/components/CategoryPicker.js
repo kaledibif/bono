@@ -32,8 +32,9 @@ const CategoryPicker = ({ category, categories, onPicked }) => {
   }, [])
 
   const orderBy = (data) => {
-    return data.sort((a, b) => (a.type > b.type) ? 1 : (a.type === b.type) ? ((a.name > b.name) ? 1 : -1) : -1)
-    // data.sort((a, b) => (a.type > b.type) ? 1 : -1)
+    // return data.sort((a, b) => (a.type > b.type) ? 1 : (a.type === b.type) ? ((a.name > b.name) ? 1 : -1) : -1)
+    // return data.sort((a, b) => (a.type > b.type) ? 1 : -1)
+    return data
   }
 
   return (

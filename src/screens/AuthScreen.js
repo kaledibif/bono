@@ -12,8 +12,6 @@ import {
   Button,
   Container,
   Content,
-  Header,
-  Icon,
   Spinner,
   Form,
   Item,
@@ -23,13 +21,12 @@ import {
   Left,
   Right,
   Root,
-  Title,
   Toast,
 } from "native-base";
 import { firebase } from '../config/firebase/firebase'
 
 import AuthController from '../controllers/AuthController'
-import AuthStyles from "./AuthStyles"
+import AuthStyles from "../styles/AuthStyles"
 
 import Strings from '../constants/Strings'
 import { Validators } from "../utils/Validators"
@@ -49,8 +46,6 @@ const AuthScreen = ({ navigation }) => {
 
   const getAutoLoginStatus = async () => {
     setAppLoading(false)
-    // let status = await AuthController.autoLogin()
-    // navigation.navigate('Categories')
   }
 
   const clearState = () => {
@@ -101,16 +96,10 @@ const AuthScreen = ({ navigation }) => {
   const getContent = () => {
     return (
       <Container style={AuthStyles.container}>
-        <Header style={AuthStyles.header}>
-          <Left style={AuthStyles.flex1}>
-            <Button transparent>
-              <Icon type="Ionicons" style={AuthStyles.headerIcon} name="ios-infinite" />
-              <Title style={AuthStyles.headerLeftText}>{Strings.auth.header.appMotto}</Title>
-            </Button>
-          </Left>
-          <Right style={AuthStyles.flex1} />
-        </Header>
-        <Content scrollEnabled={false}>
+        <Content>
+          <View style={AuthStyles.titleContainer}>
+            <Text style={AuthStyles.headerLeftText}>{Strings.auth.header.appMotto}</Text>
+          </View>
           <Form style={AuthStyles.form}>
             {type === 'register' ? (
               <Item stackedLabel>
@@ -197,23 +186,6 @@ const AuthScreen = ({ navigation }) => {
               </Body>
               <Right style={AuthStyles.flex1} />
             </Button>
-            {/* {type === 'login' ? (
-              <Button
-                activeOpacity={.8}
-                block
-                disabled={loading}
-                icon
-                light
-                onPress={() => navigation.navigate('Categories')}
-                style={styles.offlineButton}
-              >
-                <Body style={styles.flex4}>
-                  <Text style={styles.offlineButtonText}>
-                    {Strings.auth.buttons.useOffline}
-                  </Text>
-                </Body>
-              </Button>
-            ) : null} */}
             <TouchableOpacity
               activeOpacity={.75}
               disabled={loading}
